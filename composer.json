@@ -1,0 +1,36 @@
+{
+    "name": "thecodingmachine/tdbm-fluid-schema-builder",
+    "description": "Build and modify your database schema used by TDBM using a fluid syntax.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Négrier",
+            "email": "d.negrier@thecodingmachine.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "thecodingmachine/dbal-fluid-schema-builder": "^1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8",
+        "satooshi/php-coveralls": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "TheCodingMachine\\FluidSchema\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TheCodingMachine\\FluidSchema\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
