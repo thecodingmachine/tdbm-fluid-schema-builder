@@ -101,6 +101,15 @@ class TdbmFluidTable
         return $this;
     }
 
+    /**
+     * Adds a "Type" annotation.
+     */
+    public function graphqlType(): TdbmFluidTable
+    {
+        $this->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Type');
+        return $this;
+    }
+
     private function getComment(): Comment
     {
         $options = $this->fluidTable->getDbalTable()->getOptions();
@@ -115,7 +124,7 @@ class TdbmFluidTable
         return $this;
     }
 
-    public function addAnnotation(string $annotation, string $content, bool $replaceExisting = true): self
+    public function addAnnotation(string $annotation, string $content = '', bool $replaceExisting = true): self
     {
         $comment = $this->getComment()->addAnnotation($annotation, $content, $replaceExisting);
         $this->saveComment($comment);

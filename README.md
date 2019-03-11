@@ -34,6 +34,9 @@ $posts = $db->table('posts')->customBeanName('Article');
 // This will generate a @UUID TDBM annotation that will help TDBM autogenerate the UUID 
 $posts = $db->table('posts')->uuid('v4');
 
+// The "posts" table will generate a GraphQL type (i.e. the bean will be annotated with the GraphQLite @Type annotation).
+$posts = $db->table('posts')->graphqlType();
+
 // You can pass a new 'v1' or 'v4' parameter to uuid().
 // This will generate a @UUID TDBM annotation that will help TDBM autogenerate the UUID 
 $posts = $db->table('posts')->string('title')->graphql() // The column is a GraphQL field

@@ -40,5 +40,7 @@ class TdbmFluidColumnGraphqlOptionsTest extends TestCase
 
         $column2 = $graphqlOptions->column('foo');
         $this->assertSame($column2, $column);
+
+        $this->assertContains('@TheCodingMachine\GraphQLite\Annotations\Type', $schema->getTable('posts')->getOptions()['comment']);
     }
 }
