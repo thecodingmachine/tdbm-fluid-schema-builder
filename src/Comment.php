@@ -57,12 +57,23 @@ class Comment
         return false;
     }
 
-    public function addAnnotation(string $annotation, string $content = '', bool $replaceExisting = true): self
+    /**
+     * @param string $annotation
+     * @param mixed $content
+     * @param bool $replaceExisting
+     * @return Comment
+     */
+    public function addAnnotation(string $annotation, $content = null, bool $replaceExisting = true, bool $explicitNull = false): self
     {
         if ($replaceExisting === true) {
             $this->removeAnnotation($annotation);
         }
         $annotation = ltrim($annotation, '@');
+        if ($explicitNull === true && $content === null) {
+            $content = '(null)';
+        } else {
+            $content = DoctrineAnnotationDumper::exportValues($content);
+        }
         $this->comment .= "\n@".$annotation.$content;
         return $this;
     }

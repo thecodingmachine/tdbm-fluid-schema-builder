@@ -25,14 +25,14 @@ class TdbmFluidJunctionTableGraphqlOptionsTest extends TestCase
 
         $this->assertSame("\n@TheCodingMachine\GraphQLite\Annotations\Field
 @TheCodingMachine\GraphQLite\Annotations\Logged
-@TheCodingMachine\GraphQLite\Annotations\Right(name=\"CAN_EDIT\")
-@TheCodingMachine\GraphQLite\Annotations\FailWith(NULL)", $schema->getTable('posts_users')->getOptions()['comment']);
+@TheCodingMachine\GraphQLite\Annotations\Right(name = \"CAN_EDIT\")
+@TheCodingMachine\GraphQLite\Annotations\FailWith(null)", $schema->getTable('posts_users')->getOptions()['comment']);
 
         $graphqlOptions->logged(false);
 
         $this->assertSame("\n@TheCodingMachine\GraphQLite\Annotations\Field
-@TheCodingMachine\GraphQLite\Annotations\Right(name=\"CAN_EDIT\")
-@TheCodingMachine\GraphQLite\Annotations\FailWith(NULL)", $schema->getTable('posts_users')->getOptions()['comment']);
+@TheCodingMachine\GraphQLite\Annotations\Right(name = \"CAN_EDIT\")
+@TheCodingMachine\GraphQLite\Annotations\FailWith(null)", $schema->getTable('posts_users')->getOptions()['comment']);
 
         $this->assertSame($junctionTableOptions, $graphqlOptions->endGraphql());
     }

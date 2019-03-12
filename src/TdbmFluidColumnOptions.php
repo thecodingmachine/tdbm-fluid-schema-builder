@@ -123,9 +123,15 @@ class TdbmFluidColumnOptions
         return $this;
     }
 
-    public function addAnnotation(string $annotation, string $content = '', bool $replaceExisting = true): self
+    /**
+     * @param string $annotation
+     * @param mixed $content
+     * @param bool $replaceExisting
+     * @return TdbmFluidColumnOptions
+     */
+    public function addAnnotation(string $annotation, $content = null, bool $replaceExisting = true, bool $explicitNull = false): self
     {
-        $comment = $this->getComment()->addAnnotation($annotation, $content, $replaceExisting);
+        $comment = $this->getComment()->addAnnotation($annotation, $content, $replaceExisting, $explicitNull);
         $this->saveComment($comment);
         return $this;
     }
