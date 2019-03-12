@@ -36,19 +36,25 @@ class TdbmFluidJunctionTableGraphqlOptions
 
     public function right(string $rightName): self
     {
-        $this->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Right', '(name="'.addslashes($rightName).'")');
+        $this->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Right', ['name'=>$rightName]);
         return $this;
     }
 
     public function failWith($value): self
     {
-        $this->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\FailWith', '('.var_export($value, true).')');
+        $this->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\FailWith', $value, true, true);
         return $this;
     }
 
-    public function addAnnotation(string $annotation, string $content = '', bool $replaceExisting = true): self
+    /**
+     * @param string $annotation
+     * @param mixed $content
+     * @param bool $replaceExisting
+     * @return TdbmFluidJunctionTableGraphqlOptions
+     */
+    public function addAnnotation(string $annotation, $content = null, bool $replaceExisting = true, bool $explicitNull = false): self
     {
-        $this->tdbmFluidTable->addAnnotation($annotation, $content, $replaceExisting);
+        $this->tdbmFluidTable->addAnnotation($annotation, $content, $replaceExisting, $explicitNull);
         return $this;
     }
 

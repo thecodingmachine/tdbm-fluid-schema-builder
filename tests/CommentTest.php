@@ -39,7 +39,7 @@ Foo
 @Yop
 EOF
         );
-        $comment->addAnnotation('Yop', '(true)');
+        $comment->addAnnotation('Yop', true);
         $this->assertSame(<<<EOF
 Foo
 @Yop(true)

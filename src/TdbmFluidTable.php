@@ -73,7 +73,7 @@ class TdbmFluidTable
         }
         $this->fluidTable->uuid();
 
-        $this->column('uuid')->guid()->addAnnotation('UUID', '("'.$version.'")');
+        $this->column('uuid')->guid()->addAnnotation('UUID', $version);
         return $this;
     }
 
@@ -97,7 +97,7 @@ class TdbmFluidTable
      */
     public function customBeanName(string $beanName): TdbmFluidTable
     {
-        $this->addAnnotation('Bean', '(name="'.addslashes($beanName).'")');
+        $this->addAnnotation('Bean', ['name'=>$beanName]);
         return $this;
     }
 
@@ -124,9 +124,15 @@ class TdbmFluidTable
         return $this;
     }
 
-    public function addAnnotation(string $annotation, string $content = '', bool $replaceExisting = true): self
+    /**
+     * @param string $annotation
+     * @param mixed $content
+     * @param bool $replaceExisting
+     * @return TdbmFluidTable
+     */
+    public function addAnnotation(string $annotation, $content = null, bool $replaceExisting = true, bool $explicitNull = false): self
     {
-        $comment = $this->getComment()->addAnnotation($annotation, $content, $replaceExisting);
+        $comment = $this->getComment()->addAnnotation($annotation, $content, $replaceExisting, $explicitNull);
         $this->saveComment($comment);
         return $this;
     }

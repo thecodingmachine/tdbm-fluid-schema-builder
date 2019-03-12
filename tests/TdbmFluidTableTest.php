@@ -120,7 +120,7 @@ class TdbmFluidTableTest extends TestCase
 
         $posts->customBeanName('Article');
 
-        $this->assertSame("\n@Bean(name=\"Article\")", $schema->getTable('posts')->getOptions()['comment']);
+        $this->assertSame("\n@Bean(name = \"Article\")", $schema->getTable('posts')->getOptions()['comment']);
     }
 
 

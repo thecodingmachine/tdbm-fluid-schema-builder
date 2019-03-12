@@ -25,16 +25,16 @@ class TdbmFluidColumnGraphqlOptionsTest extends TestCase
                        ->right('CAN_EDIT')
                        ->failWith(null);
 
-        $this->assertSame("\n@TheCodingMachine\GraphQLite\Annotations\Field(name=\"bar\")
+        $this->assertSame("\n@TheCodingMachine\GraphQLite\Annotations\Field(name = \"bar\")
 @TheCodingMachine\GraphQLite\Annotations\Logged
-@TheCodingMachine\GraphQLite\Annotations\Right(name=\"CAN_EDIT\")
-@TheCodingMachine\GraphQLite\Annotations\FailWith(NULL)", $schema->getTable('posts')->getColumn('foo')->getComment());
+@TheCodingMachine\GraphQLite\Annotations\Right(name = \"CAN_EDIT\")
+@TheCodingMachine\GraphQLite\Annotations\FailWith(null)", $schema->getTable('posts')->getColumn('foo')->getComment());
 
         $graphqlOptions->logged(false);
 
-        $this->assertSame("\n@TheCodingMachine\GraphQLite\Annotations\Field(name=\"bar\")
-@TheCodingMachine\GraphQLite\Annotations\Right(name=\"CAN_EDIT\")
-@TheCodingMachine\GraphQLite\Annotations\FailWith(NULL)", $schema->getTable('posts')->getColumn('foo')->getComment());
+        $this->assertSame("\n@TheCodingMachine\GraphQLite\Annotations\Field(name = \"bar\")
+@TheCodingMachine\GraphQLite\Annotations\Right(name = \"CAN_EDIT\")
+@TheCodingMachine\GraphQLite\Annotations\FailWith(null)", $schema->getTable('posts')->getColumn('foo')->getComment());
 
         $this->assertSame($columnOptions, $graphqlOptions->endGraphql());
 
