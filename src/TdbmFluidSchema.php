@@ -51,13 +51,14 @@ class TdbmFluidSchema
      *
      * @param string $table1
      * @param string $table2
-     * @return FluidSchema
+     * @return TdbmFluidJunctionTableOptions
      */
-    public function junctionTable(string $table1, string $table2): TdbmFluidSchema
+    public function junctionTable(string $table1, string $table2): TdbmFluidJunctionTableOptions
     {
         $this->fluidSchema->junctionTable($table1, $table2);
+        $tableName = $this->namingStrategy->getJointureTableName($table1, $table2);
 
-        return $this;
+        return new TdbmFluidJunctionTableOptions($this->table($tableName));
     }
 
     /**

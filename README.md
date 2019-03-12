@@ -45,4 +45,6 @@ $posts = $db->table('posts')->string('title')->graphql() // The column is a Grap
             ->right('CAN_EDIT') // The user must have the 'CAN_EDIT' right to view the field
             ->failWith(null) // If the user is not logged or has no right, let's serve 'null'
             ->endGraphql();
+
+$db->junctionTable('posts', 'users')->graphql(); // Expose the many-to-many relationship as a GraphQL field.
 ```
