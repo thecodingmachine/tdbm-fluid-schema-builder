@@ -30,11 +30,13 @@ class TdbmFluidColumnGraphqlOptionsTest extends TestCase
 @TheCodingMachine\GraphQLite\Annotations\Right(name = \"CAN_EDIT\")
 @TheCodingMachine\GraphQLite\Annotations\FailWith(null)", $schema->getTable('posts')->getColumn('foo')->getComment());
 
-        $graphqlOptions->logged(false);
+        $graphqlOptions->logged(false)
+            ->outputType('ID');
 
-        $this->assertSame("\n@TheCodingMachine\GraphQLite\Annotations\Field(name = \"bar\")
-@TheCodingMachine\GraphQLite\Annotations\Right(name = \"CAN_EDIT\")
-@TheCodingMachine\GraphQLite\Annotations\FailWith(null)", $schema->getTable('posts')->getColumn('foo')->getComment());
+
+        $this->assertSame("\n@TheCodingMachine\GraphQLite\Annotations\Right(name = \"CAN_EDIT\")
+@TheCodingMachine\GraphQLite\Annotations\FailWith(null)
+@TheCodingMachine\GraphQLite\Annotations\Field(name = \"bar\", outputType = \"ID\")", $schema->getTable('posts')->getColumn('foo')->getComment());
 
         $this->assertSame($columnOptions, $graphqlOptions->endGraphql());
 
