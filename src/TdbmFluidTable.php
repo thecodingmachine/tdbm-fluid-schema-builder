@@ -131,6 +131,13 @@ class TdbmFluidTable
         return $this;
     }
 
+    public function removeAnnotation(string $annotation): self
+    {
+        $comment = $this->getComment()->removeAnnotation($annotation);
+        $this->saveComment($comment);
+        return $this;
+    }
+
     public function getDbalTable(): Table
     {
         return $this->fluidTable->getDbalTable();
