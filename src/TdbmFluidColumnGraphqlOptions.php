@@ -13,6 +13,14 @@ class TdbmFluidColumnGraphqlOptions
      * @var TdbmFluidColumnOptions
      */
     private $tdbmFluidColumnOptions;
+    /**
+     * @var string
+     */
+    private $name;
+    /**
+     * @var string
+     */
+    private $outputType;
 
     public function __construct(TdbmFluidColumnOptions $tdbmFluidColumnOptions)
     {
@@ -21,8 +29,28 @@ class TdbmFluidColumnGraphqlOptions
 
     public function fieldName(string $name): self
     {
-        $this->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Field', ['name'=>$name]);
+        $this->name = $name;
+        $this->generateFieldAnnotation();
         return $this;
+    }
+
+    public function outputType(string $outputType): self
+    {
+        $this->outputType = $outputType;
+        $this->generateFieldAnnotation();
+        return $this;
+    }
+
+    private function generateFieldAnnotation(): void
+    {
+        $parameters = array_filter([
+            'name' => $this->name,
+            'outputType' => $this->outputType
+        ]);
+        if (empty($parameters)) {
+            $parameters = null;
+        }
+        $this->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Field', $parameters);
     }
 
     public function logged(bool $mustBeLogged = true): self
