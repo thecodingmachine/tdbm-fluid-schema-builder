@@ -76,6 +76,7 @@ class TdbmFluidColumnOptions
     public function autoIncrement(): self
     {
         $this->fluidColumnOptions->autoIncrement();
+        $this->addAnnotation('Autoincrement');
         return $this;
     }
 
