@@ -67,7 +67,7 @@ class TdbmFluidColumnGraphqlOptions
         } else {
             // If the column is the primary key, let's add an ID type
             $pk = $this->tdbmFluidColumnOptions->then()->getDbalTable()->getPrimaryKey();
-            if ($pk !== null && $pk->getColumns() === [$this->fluidColumn->getDbalColumn()->getName()]) {
+            if ($pk !== null && $pk->getUnquotedColumns() === [$this->fluidColumn->getDbalColumn()->getName()]) {
                 $outputType = 'ID';
             }
         }
