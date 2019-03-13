@@ -60,13 +60,13 @@ class TdbmFluidTable
         return $this;
     }
 
-    public function id(): TdbmFluidTable
+    public function id(): TdbmFluidColumnOptions
     {
         $this->fluidTable->id();
-        return $this;
+        return $this->column('id')->integer();
     }
 
-    public function uuid(string $version = 'v4'): TdbmFluidTable
+    public function uuid(string $version = 'v4'): TdbmFluidColumnOptions
     {
         if ($version !== 'v1' && $version !== 'v4') {
             throw new FluidSchemaException('UUID version must be one of "v1" or "v4"');
@@ -74,7 +74,7 @@ class TdbmFluidTable
         $this->fluidTable->uuid();
 
         $this->column('uuid')->guid()->addAnnotation('UUID', $version);
-        return $this;
+        return $this->column('uuid')->guid();
     }
 
     public function timestamps(): TdbmFluidTable

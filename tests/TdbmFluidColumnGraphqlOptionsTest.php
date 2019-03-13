@@ -44,5 +44,13 @@ class TdbmFluidColumnGraphqlOptionsTest extends TestCase
         $this->assertSame($column2, $column);
 
         $this->assertContains('@TheCodingMachine\GraphQLite\Annotations\Type', $schema->getTable('posts')->getOptions()['comment']);
+
+        $idColumn = $posts->id()->graphql();
+        $this->assertContains('outputType = "ID"', $schema->getTable('posts')->getColumn('id')->getComment());
+
+        $users = $fluid->table('users');
+        $uuidColumn = $users->uuid()->graphql();
+        $this->assertContains('outputType = "ID"', $schema->getTable('users')->getColumn('uuid')->getComment());
+
     }
 }
