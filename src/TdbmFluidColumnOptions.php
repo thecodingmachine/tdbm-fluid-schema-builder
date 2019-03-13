@@ -104,11 +104,8 @@ class TdbmFluidColumnOptions
 
     public function graphql(): TdbmFluidColumnGraphqlOptions
     {
-        if (!$this->getComment()->hasAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Field')) {
-            $this->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Field');
-        }
         $this->tdbmFluidTable->graphqlType();
-        return new TdbmFluidColumnGraphqlOptions($this);
+        return new TdbmFluidColumnGraphqlOptions($this, $this->fluidColumn);
     }
 
     private function getComment(): Comment

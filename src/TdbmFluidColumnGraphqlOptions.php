@@ -5,6 +5,7 @@ namespace TheCodingMachine\FluidSchema;
 
 
 use function addslashes;
+use Doctrine\DBAL\Types\Type;
 use function var_export;
 
 class TdbmFluidColumnGraphqlOptions
@@ -21,10 +22,25 @@ class TdbmFluidColumnGraphqlOptions
      * @var string
      */
     private $outputType;
+    /**
+     * @var FluidColumn
+     */
+    private $fluidColumn;
 
-    public function __construct(TdbmFluidColumnOptions $tdbmFluidColumnOptions)
+    public function __construct(TdbmFluidColumnOptions $tdbmFluidColumnOptions, FluidColumn $fluidColumn)
     {
         $this->tdbmFluidColumnOptions = $tdbmFluidColumnOptions;
+        $this->fluidColumn = $fluidColumn;
+        if (!$this->getComment()->hasAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Field')) {
+            $this->generateFieldAnnotation();
+        }
+    }
+
+    private function getComment(): Comment
+    {
+        $comment = $this->fluidColumn->getDbalColumn()->getComment();
+
+        return new Comment($comment ?? '');
     }
 
     public function fieldName(string $name): self
@@ -43,9 +59,22 @@ class TdbmFluidColumnGraphqlOptions
 
     private function generateFieldAnnotation(): void
     {
+        $outputType = null;
+        if ($this->outputType !== null) {
+            $outputType = $this->outputType;
+        } elseif ($this->fluidColumn->getDbalColumn()->getType() === Type::getType(Type::GUID)) {
+            $outputType = 'ID';
+        } else {
+            // If the column is the primary key, let's add an ID type
+            $pk = $this->tdbmFluidColumnOptions->then()->getDbalTable()->getPrimaryKey();
+            if ($pk !== null && $pk->getColumns() === [$this->fluidColumn->getDbalColumn()->getName()]) {
+                $outputType = 'ID';
+            }
+        }
+
         $parameters = array_filter([
             'name' => $this->name,
-            'outputType' => $this->outputType
+            'outputType' => $outputType
         ]);
         if (empty($parameters)) {
             $parameters = null;
