@@ -102,7 +102,7 @@ class TdbmFluidColumnOptions
         return $this->tdbmFluidTable->column($name);
     }
 
-    public function graphql(): TdbmFluidColumnGraphqlOptions
+    public function graphqlField(): TdbmFluidColumnGraphqlOptions
     {
         $this->tdbmFluidTable->graphqlType();
         return new TdbmFluidColumnGraphqlOptions($this, $this->fluidColumn);

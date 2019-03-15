@@ -20,7 +20,7 @@ class TdbmFluidJunctionTableOptions
         $this->tdbmFluidTable = $tdbmFluidTable;
     }
 
-    public function graphql(): TdbmFluidJunctionTableGraphqlOptions
+    public function graphqlField(): TdbmFluidJunctionTableGraphqlOptions
     {
         $this->tdbmFluidTable->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Field');
         return new TdbmFluidJunctionTableGraphqlOptions($this, $this->tdbmFluidTable);

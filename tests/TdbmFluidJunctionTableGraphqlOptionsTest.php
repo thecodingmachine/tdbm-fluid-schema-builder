@@ -17,7 +17,7 @@ class TdbmFluidJunctionTableGraphqlOptionsTest extends TestCase
         $fluid->table('users')->uuid();
 
         $junctionTableOptions = $fluid->junctionTable('posts', 'users');
-        $graphqlOptions = $junctionTableOptions->graphql();
+        $graphqlOptions = $junctionTableOptions->graphqlField();
 
         $graphqlOptions->logged(true)
                        ->right('CAN_EDIT')
