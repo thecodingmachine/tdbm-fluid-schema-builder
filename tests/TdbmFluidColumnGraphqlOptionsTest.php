@@ -18,7 +18,7 @@ class TdbmFluidColumnGraphqlOptionsTest extends TestCase
         $column = $posts->column('foo');
         $columnOptions = $column->integer();
 
-        $graphqlOptions = $columnOptions->graphql();
+        $graphqlOptions = $columnOptions->graphqlField();
 
         $graphqlOptions->fieldName('bar')
                        ->logged(true)
@@ -45,11 +45,11 @@ class TdbmFluidColumnGraphqlOptionsTest extends TestCase
 
         $this->assertContains('@TheCodingMachine\GraphQLite\Annotations\Type', $schema->getTable('posts')->getOptions()['comment']);
 
-        $idColumn = $posts->id()->graphql();
+        $idColumn = $posts->id()->graphqlField();
         $this->assertContains('outputType = "ID"', $schema->getTable('posts')->getColumn('id')->getComment());
 
         $users = $fluid->table('users');
-        $uuidColumn = $users->uuid()->graphql();
+        $uuidColumn = $users->uuid()->graphqlField();
         $this->assertContains('outputType = "ID"', $schema->getTable('users')->getColumn('uuid')->getComment());
 
     }

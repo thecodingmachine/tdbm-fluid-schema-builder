@@ -16,7 +16,7 @@ class TdbmFluidJunctionTableOptionsTest extends TestCase
         $fluid->table('posts')->uuid();
         $fluid->table('users')->uuid();
 
-        $fluid->junctionTable('posts', 'users')->graphql();
+        $fluid->junctionTable('posts', 'users')->graphqlField();
 
         $this->assertSame("\n@TheCodingMachine\\GraphQLite\\Annotations\\Field", $schema->getTable('posts_users')->getOptions()['comment']);
     }
