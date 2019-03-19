@@ -52,9 +52,11 @@ class TdbmFluidColumnGraphqlOptionsTest extends TestCase
         $uuidColumn = $users->uuid()->graphqlField();
         $this->assertContains('outputType = "ID"', $schema->getTable('users')->getColumn('uuid')->getComment());
 
-        $products = $fluid->table('products')
-            ->uuid()
+        $products = $fluid->table('products');
+        $graphqlField = $products->uuid()
             ->column('user_id')->references('users')->graphqlField();
         $this->assertNotContains('outputType = "ID"', $schema->getTable('products')->getColumn('user_id')->getComment());
+
+        $this->assertSame('products', $graphqlField->then()->getDbalTable()->getName());
     }
 }

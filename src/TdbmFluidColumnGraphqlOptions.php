@@ -138,6 +138,11 @@ class TdbmFluidColumnGraphqlOptions
         return $this->tdbmFluidColumnOptions;
     }
 
+    public function then(): TdbmFluidTable
+    {
+        return $this->tdbmFluidColumnOptions->then();
+    }
+
     public function column(string $name): TdbmFluidColumn
     {
         return $this->tdbmFluidColumnOptions->column($name);
