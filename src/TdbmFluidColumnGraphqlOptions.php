@@ -63,7 +63,18 @@ class TdbmFluidColumnGraphqlOptions
         if ($this->outputType !== null) {
             $outputType = $this->outputType;
         } elseif ($this->fluidColumn->getDbalColumn()->getType() === Type::getType(Type::GUID)) {
-            $outputType = 'ID';
+            // are we part of a foreign key or not?
+            $fks = $this->tdbmFluidColumnOptions->then()->getDbalTable()->getForeignKeys();
+            $isPartOfFk = false;
+            foreach ($fks as $fk) {
+                if (in_array($this->fluidColumn->getDbalColumn()->getName(), $fk->getLocalColumns(), true) === true) {
+                    $isPartOfFk = true;
+                    break;
+                }
+            }
+            if ($isPartOfFk === false) {
+                $outputType = 'ID';
+            }
         } else {
             // If the column is the primary key, let's add an ID type
             $pk = $this->tdbmFluidColumnOptions->then()->getDbalTable()->getPrimaryKey();
