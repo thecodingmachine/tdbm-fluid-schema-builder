@@ -67,7 +67,7 @@ class TdbmFluidColumnGraphqlOptions
             $fks = $this->tdbmFluidColumnOptions->then()->getDbalTable()->getForeignKeys();
             $isPartOfFk = false;
             foreach ($fks as $fk) {
-                if (in_array($this->fluidColumn->getDbalColumn()->getName(), $fk->getLocalColumns(), true) === true) {
+                if (in_array($this->fluidColumn->getDbalColumn()->getName(), $fk->getUnquotedLocalColumns(), true) === true) {
                     $isPartOfFk = true;
                     break;
                 }
