@@ -39,7 +39,7 @@ $posts = $db->table('posts')->graphqlType();
 
 // You can pass a new 'v1' or 'v4' parameter to uuid().
 // This will generate a @UUID TDBM annotation that will help TDBM autogenerate the UUID 
-$posts = $db->table('posts')->string('title')->graphqlField() // The column is a GraphQL field
+$posts = $db->table('posts')->column('title')->string(50)->graphqlField() // The column is a GraphQL field
             ->fieldName('the_title') // Let's set the name of the field to a different value 
             ->logged() // The user must be logged to view the field
             ->right('CAN_EDIT') // The user must have the 'CAN_EDIT' right to view the field
