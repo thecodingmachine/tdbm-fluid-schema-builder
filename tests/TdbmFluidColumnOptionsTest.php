@@ -38,6 +38,15 @@ class TdbmFluidColumnOptionsTest extends TestCase
         $columnOptions->default(42);
         $this->assertSame(42, $dbalColumn->getDefault());
 
+        $columnOptions->protectedGetter();
+        $this->assertContains('@TheCodingMachine\\TDBM\\Utils\\Annotation\\ProtectedGetter', $dbalColumn->getComment());
+
+        $columnOptions->protectedSetter();
+        $this->assertContains('@TheCodingMachine\\TDBM\\Utils\\Annotation\\ProtectedSetter', $dbalColumn->getComment());
+
+        $columnOptions->protectedOneToMany();
+        $this->assertContains('@TheCodingMachine\\TDBM\\Utils\\Annotation\\ProtectedOneToMany', $dbalColumn->getComment());
+
         $this->assertSame($posts, $columnOptions->then());
 
         $columnOptions->column('bar');
