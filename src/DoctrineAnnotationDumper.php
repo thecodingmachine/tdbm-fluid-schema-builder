@@ -10,6 +10,7 @@ use function implode;
 use function is_array;
 use function is_numeric;
 use function is_string;
+use function str_replace;
 use function var_export;
 
 class DoctrineAnnotationDumper
@@ -35,7 +36,7 @@ class DoctrineAnnotationDumper
             return 'null';
         }
         if (is_string($item)) {
-            return '"'.addslashes($item).'"';
+            return '"'.str_replace('"', '""', $item).'"';
         }
         if (is_numeric($item)) {
             return $item;
