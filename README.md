@@ -34,6 +34,13 @@ $posts = $db->table('posts')->customBeanName('Article');
 // This will generate a @UUID TDBM annotation that will help TDBM autogenerate the UUID 
 $posts = $db->table('posts')->uuid('v4');
 
+// Customize the visibility of a column
+$db->table('posts')
+   ->column('user_id')->references('users')
+                      ->protectedGetter() // The Post.getUser() method is protected
+                      ->protectedSetter() // The Post.setUser() method is protected
+                      ->protectedOneToMany() // The User.getPosts() method is protected
+
 // The "posts" table will generate a GraphQL type (i.e. the bean will be annotated with the GraphQLite @Type annotation).
 $posts = $db->table('posts')->graphqlType();
 

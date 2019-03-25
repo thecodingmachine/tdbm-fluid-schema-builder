@@ -108,6 +108,24 @@ class TdbmFluidColumnOptions
         return new TdbmFluidColumnGraphqlOptions($this, $this->fluidColumn);
     }
 
+    public function protectedGetter(): self
+    {
+        $this->addAnnotation('TheCodingMachine\\TDBM\\Utils\\Annotation\\ProtectedGetter');
+        return $this;
+    }
+
+    public function protectedSetter(): self
+    {
+        $this->addAnnotation('TheCodingMachine\\TDBM\\Utils\\Annotation\\ProtectedSetter');
+        return $this;
+    }
+
+    public function protectedOneToMany(): self
+    {
+        $this->addAnnotation('TheCodingMachine\\TDBM\\Utils\\Annotation\\ProtectedOneToMany');
+        return $this;
+    }
+
     private function getComment(): Comment
     {
         $comment = $this->fluidColumn->getDbalColumn()->getComment();
