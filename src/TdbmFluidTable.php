@@ -134,6 +134,32 @@ class TdbmFluidTable
         return $this;
     }
 
+    /**
+     * Makes the generated bean implement the trait $traitName
+     *
+     * @param string $traitName
+     * @param string[] $modifiers An array of modifiers. For instance: ['A::foo insteadof B']
+     * @return TdbmFluidTable
+     */
+    public function useTrait(string $traitName, array $modifiers = []): self
+    {
+        $this->addAnnotation('AddTrait', ['name' => $traitName, 'modifiers' => $modifiers], false);
+        return $this;
+    }
+
+    /**
+     * Makes the generated DAO implement the trait $traitName
+     *
+     * @param string $traitName
+     * @param string[] $modifiers An array of modifiers. For instance: ['A::foo insteadof B']
+     * @return TdbmFluidTable
+     */
+    public function useTraitOnDao(string $traitName, array $modifiers = []): self
+    {
+        $this->addAnnotation('AddTraitOnDao', ['name' => $traitName, 'modifiers' => $modifiers], false);
+        return $this;
+    }
+
     private function getComment(): Comment
     {
         $options = $this->fluidTable->getDbalTable()->getOptions();

@@ -148,6 +148,31 @@ class TdbmFluidTableTest extends TestCase
         $this->assertSame("\n@AddInterfaceOnDao(name = \"Foo\\Bar\")", $schema->getTable('posts')->getOptions()['comment']);
     }
 
+    public function testUseTrait()
+    {
+        $schema = new Schema();
+        $fluid = new TdbmFluidSchema($schema);
+
+        $posts = $fluid->table('posts');
+
+        $posts->useTrait('Foo\\Bar');
+        $posts->useTrait('Foo\\Bar2');
+
+        $this->assertSame("\n@AddTrait(name = \"Foo\\Bar\", modifiers = {})\n@AddTrait(name = \"Foo\\Bar2\", modifiers = {})", $schema->getTable('posts')->getOptions()['comment']);
+    }
+
+    public function testUseTraitOnDao()
+    {
+        $schema = new Schema();
+        $fluid = new TdbmFluidSchema($schema);
+
+        $posts = $fluid->table('posts');
+
+        $posts->useTraitOnDao('Foo\\Bar');
+
+        $this->assertSame("\n@AddTraitOnDao(name = \"Foo\\Bar\", modifiers = {})", $schema->getTable('posts')->getOptions()['comment']);
+    }
+
     public function testTimestamps()
     {
         if (defined('Doctrine\\DBAL\\Types\\Type::DATE_IMMUTABLE')) {
