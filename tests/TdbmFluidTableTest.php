@@ -123,6 +123,30 @@ class TdbmFluidTableTest extends TestCase
         $this->assertSame("\n@Bean(name = \"Article\")", $schema->getTable('posts')->getOptions()['comment']);
     }
 
+    public function testImplementsInterface()
+    {
+        $schema = new Schema();
+        $fluid = new TdbmFluidSchema($schema);
+
+        $posts = $fluid->table('posts');
+
+        $posts->implementsInterface('Foo\\Bar');
+        $posts->implementsInterface('Foo\\Bar2');
+
+        $this->assertSame("\n@AddInterface(name = \"Foo\\Bar\")\n@AddInterface(name = \"Foo\\Bar2\")", $schema->getTable('posts')->getOptions()['comment']);
+    }
+
+    public function testImplementsInterfaceOnDao()
+    {
+        $schema = new Schema();
+        $fluid = new TdbmFluidSchema($schema);
+
+        $posts = $fluid->table('posts');
+
+        $posts->implementsInterfaceOnDao('Foo\\Bar');
+
+        $this->assertSame("\n@AddInterfaceOnDao(name = \"Foo\\Bar\")", $schema->getTable('posts')->getOptions()['comment']);
+    }
 
     public function testTimestamps()
     {

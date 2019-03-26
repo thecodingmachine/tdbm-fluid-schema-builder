@@ -41,6 +41,11 @@ $db->table('posts')
                       ->protectedSetter() // The Post.setUser() method is protected
                       ->protectedOneToMany() // The User.getPosts() method is protected
 
+// Customize implemented interfaces
+$db->table('posts')
+   ->implementsInterface('App\\PostInterface')  // The generated bean will implement interface App\\PostInterface
+   ->implementsInterfaceOnDao('App\\PostDaoInterface'); // The generated DAO will implement interface App\\PostDaoInterface
+
 // The "posts" table will generate a GraphQL type (i.e. the bean will be annotated with the GraphQLite @Type annotation).
 $posts = $db->table('posts')->graphqlType();
 
