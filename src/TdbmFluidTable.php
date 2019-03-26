@@ -77,7 +77,7 @@ class TdbmFluidTable
         return $this->column('uuid')->guid();
     }
 
-    public function timestamps(): TdbmFluidTable
+    public function timestamps(): self
     {
         $this->fluidTable->timestamps();
         return $this;
@@ -86,7 +86,7 @@ class TdbmFluidTable
     /**
      * @throws FluidSchemaException
      */
-    public function extends(string $tableName): TdbmFluidTable
+    public function extends(string $tableName): self
     {
         $this->fluidTable->extends($tableName);
         return $this;
@@ -95,7 +95,7 @@ class TdbmFluidTable
     /**
      * Adds a "Bean" annotation to the table.
      */
-    public function customBeanName(string $beanName): TdbmFluidTable
+    public function customBeanName(string $beanName): self
     {
         $this->addAnnotation('Bean', ['name'=>$beanName]);
         return $this;
@@ -104,9 +104,33 @@ class TdbmFluidTable
     /**
      * Adds a "Type" annotation.
      */
-    public function graphqlType(): TdbmFluidTable
+    public function graphqlType(): self
     {
         $this->addAnnotation('TheCodingMachine\\GraphQLite\\Annotations\\Type');
+        return $this;
+    }
+
+    /**
+     * Makes the generated bean implement the interface $interfaceName
+     *
+     * @param string $interfaceName The fully qualified name of the PHP interface to implement.
+     * @return TdbmFluidTable
+     */
+    public function implementsInterface(string $interfaceName): self
+    {
+        $this->addAnnotation('AddInterface', ['name' => $interfaceName], false);
+        return $this;
+    }
+
+    /**
+     * Makes the generated DAO implement the interface $interfaceName
+     *
+     * @param string $interfaceName The fully qualified name of the PHP interface to implement.
+     * @return TdbmFluidTable
+     */
+    public function implementsInterfaceOnDao(string $interfaceName): self
+    {
+        $this->addAnnotation('AddInterfaceOnDao', ['name' => $interfaceName], false);
         return $this;
     }
 
