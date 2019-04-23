@@ -108,6 +108,11 @@ class TdbmFluidColumnOptions
         return new TdbmFluidColumnGraphqlOptions($this, $this->fluidColumn);
     }
 
+    public function jsonSerialize(): TdbmFluidColumnJsonOptions
+    {
+        return new TdbmFluidColumnJsonOptions($this);
+    }
+
     public function protectedGetter(): self
     {
         $this->addAnnotation('TheCodingMachine\\TDBM\\Utils\\Annotation\\ProtectedGetter');

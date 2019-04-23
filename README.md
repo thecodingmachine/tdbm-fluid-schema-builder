@@ -58,5 +58,20 @@ $posts = $db->table('posts')->column('title')->string(50)->graphqlField() // The
             ->failWith(null) // If the user is not logged or has no right, let's serve 'null'
             ->endGraphql();
 
+// You can pass instructions on how JSON serialization occurs.
+// This will generate a set of JSONxxx annotations.
+$nodes = $db->table('nodes')
+    ->column('id')->integer()->primaryKey()->autoIncrement()->jsonSerialize()->ignore()
+    ->column('alias_id')->references('nodes')->null()->jsonSerialize()->recursive()
+    ->column('parent_id')->references('nodes')->null()->jsonSerialize()->include()
+    ->column('root_id')->references('nodes')->null()->jsonSerialize()->ignore()
+    ->column('owner_id')->references('authors')->null()->jsonSerialize()->formatUsingProperty('name')->include()
+    ->column('owner_country')->references('authors')->null()->jsonSerialize()->formatUsingMethod('getCountryName')->include()
+    ->column('name')->string()->jsonSerialize()->key('basename')
+    ->column('size')->integer()->notNull()->default(0)->jsonSerialize()->numericFormat(null, null, null, ' o')
+    ->column('weight')->float()->null()->jsonSerialize()->numericFormat(2, ',', '.', 'g')
+    ->column('created_at')->date()->null()->jsonSerialize()->datetimeFormat("Y-m-d")
+    ->column('another_parent')->references('nodes')->comment('@JsonCollection("entries") @JsonFormat(property="entry")');
+
 $db->junctionTable('posts', 'users')->graphqlField(); // Expose the many-to-many relationship as a GraphQL field.
 ```
