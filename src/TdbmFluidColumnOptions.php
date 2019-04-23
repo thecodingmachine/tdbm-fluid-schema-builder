@@ -110,7 +110,7 @@ class TdbmFluidColumnOptions
 
     public function jsonSerialize(): TdbmFluidColumnJsonOptions
     {
-        return new TdbmFluidColumnJsonOptions($this, $this->fluidColumn);
+        return new TdbmFluidColumnJsonOptions($this);
     }
 
     public function protectedGetter(): self

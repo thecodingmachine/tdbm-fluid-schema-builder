@@ -27,19 +27,27 @@ class TdbmFluidJunctionTableJsonOptionsTest extends TestCase
             ->column('another_parent')->references('nodes')->comment('@JsonCollection("entries") @JsonFormat(property="entry")');
 
         $nodesTable = $schema->getTable('nodes');
-        $this->assertContains("@JsonIgnore", $nodesTable->getColumn('id')->getComment());
-        $this->assertContains("@JsonRecursive", $nodesTable->getColumn('alias_id')->getComment());
-        $this->assertContains("@JsonInclude", $nodesTable->getColumn('parent_id')->getComment());
-        $this->assertContains("@JsonIgnore", $nodesTable->getColumn('root_id')->getComment());
+        $this->assertContains('@JsonIgnore', $nodesTable->getColumn('id')->getComment());
+        $this->assertContains('@JsonRecursive', $nodesTable->getColumn('alias_id')->getComment());
+        $this->assertContains('@JsonInclude', $nodesTable->getColumn('parent_id')->getComment());
+        $this->assertContains('@JsonIgnore', $nodesTable->getColumn('root_id')->getComment());
         $this->assertContains('@JsonFormat(property = "name")', $nodesTable->getColumn('owner_id')->getComment());
         $this->assertContains('@JsonFormat(method = "myMethod")', $nodesTable->getColumn('owner_country')->getComment());
-        $this->assertContains("@JsonKey(key = \"basename\")", $nodesTable->getColumn('name')->getComment());
-        $this->assertContains("@JsonFormat(unit = \" o\")", $nodesTable->getColumn('size')->getComment());
-        $this->assertContains("@JsonFormat(decimals = 2, point = \",\", separator = \".\", unit = \"g\")", $nodesTable->getColumn('weight')->getComment());
-        $this->assertContains("@JsonFormat(date = \"Y-m-d\")", $nodesTable->getColumn('created_at')->getComment());
-        $this->assertContains("@JsonCollection(\"entries\")", $nodesTable->getColumn('another_parent')->getComment());
+        $this->assertContains('@JsonKey(key = "basename")', $nodesTable->getColumn('name')->getComment());
+        $this->assertContains('@JsonFormat(unit = " o")', $nodesTable->getColumn('size')->getComment());
+        $this->assertContains('@JsonFormat(decimals = 2, point = ",", separator = ".", unit = "g")', $nodesTable->getColumn('weight')->getComment());
+        $this->assertContains('@JsonFormat(date = "Y-m-d")', $nodesTable->getColumn('created_at')->getComment());
+        $this->assertContains('@JsonCollection("entries")', $nodesTable->getColumn('another_parent')->getComment());
+
+        $fluid->table('node_entries')
+            ->column('id')->integer()->primaryKey()->autoIncrement()
+            ->column('node_id')->references('nodes')->jsonSerialize()->collection("entries")
+            ->column('entry')->string()->null();
+
+        $this->assertContains('@JsonCollection(key = "entries")', $schema->getTable('node_entries')->getColumn('node_id')->getComment());
 
         $anotherColumn = $fluid->table('nodes')->column('another_column')->integer();
         $this->assertSame($anotherColumn, $anotherColumn->jsonSerialize()->endJsonSerialize());
+        $this->assertSame($fluid->table('nodes'), $anotherColumn->jsonSerialize()->then());
     }
 }

@@ -14,30 +14,10 @@ class TdbmFluidColumnJsonOptions
      * @var TdbmFluidColumnOptions
      */
     private $tdbmFluidColumnOptions;
-    /**
-     * @var string
-     */
-    private $name;
-    /**
-     * @var string
-     */
-    private $outputType;
-    /**
-     * @var FluidColumn
-     */
-    private $fluidColumn;
 
-    public function __construct(TdbmFluidColumnOptions $tdbmFluidColumnOptions, FluidColumn $fluidColumn)
+    public function __construct(TdbmFluidColumnOptions $tdbmFluidColumnOptions)
     {
         $this->tdbmFluidColumnOptions = $tdbmFluidColumnOptions;
-        $this->fluidColumn = $fluidColumn;
-    }
-
-    private function getComment(): Comment
-    {
-        $comment = $this->fluidColumn->getDbalColumn()->getComment();
-
-        return new Comment($comment ?? '');
     }
 
     public function key(string $name): self
@@ -128,12 +108,6 @@ class TdbmFluidColumnJsonOptions
     public function addAnnotation(string $annotation, $content = null, bool $replaceExisting = true, bool $explicitNull = false): self
     {
         $this->tdbmFluidColumnOptions->addAnnotation($annotation, $content, $replaceExisting, $explicitNull);
-        return $this;
-    }
-
-    public function removeAnnotation(string $annotation): self
-    {
-        $this->tdbmFluidColumnOptions->removeAnnotation($annotation);
         return $this;
     }
 
