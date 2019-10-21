@@ -70,9 +70,9 @@ class TdbmFluidColumn
         return $this->getOptions($options);
     }
 
-    public function text(): TdbmFluidColumnOptions
+    public function text(?int $length = null): TdbmFluidColumnOptions
     {
-        $options = $this->fluidColumn->text();
+        $options = $this->fluidColumn->text($length);
         return $this->getOptions($options);
     }
 
