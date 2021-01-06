@@ -42,15 +42,15 @@ class TdbmFluidTable
         return $this->tdbmFluidColumns[$name];
     }
 
-    public function index(array $columnNames): TdbmFluidTable
+    public function index(array $columnNames, ?string $indexName = null): TdbmFluidTable
     {
-        $this->fluidTable->index($columnNames);
+        $this->fluidTable->index($columnNames, $indexName);
         return $this;
     }
 
-    public function unique(array $columnNames): TdbmFluidTable
+    public function unique(array $columnNames, ?string $indexName = null): TdbmFluidTable
     {
-        $this->fluidTable->unique($columnNames);
+        $this->fluidTable->unique($columnNames, $indexName);
         return $this;
     }
 
