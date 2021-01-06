@@ -51,9 +51,9 @@ class TdbmFluidColumnOptions
      *
      * @return self
      */
-    public function unique(?string $indexName = null): self
+    public function unique(): self
     {
-        $this->fluidColumnOptions->unique($indexName);
+        $this->fluidColumnOptions->unique();
         return $this;
     }
 
