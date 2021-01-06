@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "thecodingmachine/dbal-fluid-schema-builder": "^1.4",
+        "thecodingmachine/dbal-fluid-schema-builder": "^1.6",
         "doctrine/dbal": "^2.5"
     },
     "require-dev": {

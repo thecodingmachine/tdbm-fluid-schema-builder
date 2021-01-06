@@ -51,9 +51,9 @@ class TdbmFluidColumnOptions
      *
      * @return self
      */
-    public function unique(): self
+    public function unique(?string $indexName = null): self
     {
-        $this->fluidColumnOptions->unique();
+        $this->fluidColumnOptions->unique($indexName);
         return $this;
     }
 
@@ -62,9 +62,9 @@ class TdbmFluidColumnOptions
      *
      * @return self
      */
-    public function index(): self
+    public function index(?string $indexName = null): self
     {
-        $this->fluidColumnOptions->index();
+        $this->fluidColumnOptions->index($indexName);
         return $this;
     }
     public function comment(string $comment): self
