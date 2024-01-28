@@ -154,6 +154,9 @@ class TdbmFluidColumn
         return $this->getOptions($options);
     }
 
+    /**
+     * @deprecated Use json() instead
+     */
     public function array(): TdbmFluidColumnOptions
     {
         $options = $this->fluidColumn->array();
@@ -172,12 +175,18 @@ class TdbmFluidColumn
         return $this->getOptions($options);
     }
 
+    /**
+     * @deprecated Use json() instead
+     */
     public function jsonArray(): TdbmFluidColumnOptions
     {
         $options = $this->fluidColumn->jsonArray();
         return $this->getOptions($options);
     }
 
+    /**
+     * @deprecated Use json() instead
+     */
     public function object(): TdbmFluidColumnOptions
     {
         $options = $this->fluidColumn->object();
